@@ -10,19 +10,19 @@ import Footer from "./components/Footer";
 export default function App() {
   return (
     <ClerkProvider publishableKey="pk_test_ZXhjaXRlZC1jYWxmLTM1LmNsZXJrLmFjY291bnRzLmRldiQ">
-      <View style={styles.container}>
-        <SignedIn>
-          <NavigationContainer>
+      <NavigationContainer>
+        <View style={styles.container}>
+          <SignedIn>
             <Header />
             <Body />
             <Footer />
-          </NavigationContainer>
-        </SignedIn>
-        <SignedOut>
-          <Login />
-        </SignedOut>
-      </View>
-      <StatusBar style="auto" />
+          </SignedIn>
+          <SignedOut>
+            <Login />
+          </SignedOut>
+        </View>
+        <StatusBar style="auto" />
+      </NavigationContainer>
     </ClerkProvider>
   );
 }

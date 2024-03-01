@@ -3,7 +3,7 @@ import {
   Text,
   StyleSheet,
   Image,
-  // TextInput,
+  TextInput,
   TouchableOpacity,
 } from "react-native";
 import React from "react";
@@ -63,7 +63,8 @@ const style = StyleSheet.create({
   container: {
     padding: 20,
     paddingTop: 40,
-    width: 1000,
+    width: "100%",
+    height: "20",
     backgroundColor: "blue",
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
@@ -92,7 +93,7 @@ const style = StyleSheet.create({
   textNameUSer: {
     fontSize: 20,
     color: "white",
-    fontFamily: "titanOne-Regular",
+    // fontFamily: "titanOne-Regular",
   },
   textInput: {
     padding: 7,
@@ -103,16 +104,16 @@ const style = StyleSheet.create({
     fontSize: 16,
     fontFamily: "outfit-bold",
   },
-  // searchBarContainer: {
-  //   marginTop: 15,
-  //   display: "flex",
-  //   flexDirection: "row",
-  //   gap: 10,
-  //   marginBottom: 10,
-  // },
-  // searchbtn: {
-  //   backgroundColor: "white",
-  //   padding: 10,
-  //   borderRadius: 8,
-  // },
+  searchBarContainer: {
+    marginTop: 15,
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+    marginBottom: 10,
+  },
+  searchbtn: {
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 8,
+  },
 });
