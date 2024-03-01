@@ -3,21 +3,30 @@ import {
   Text,
   StyleSheet,
   Image,
-  TextInput,
+  Modal,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-react"; // Librería para obtener la información del usuario a través de una URL
-import { Feather } from "@expo/vector-icons"; //libreria para iconos https://icons.expo.fyi/Index
+// import { Feather } from "@expo/vector-icons"; //libreria para iconos https://icons.expo.fyi/Index
 import { Entypo } from "@expo/vector-icons"; //libreria para iconos https://icons.expo.fyi/Index
 import { useNavigation } from "@react-navigation/native";
 import { useClerk } from "@clerk/clerk-react";
+import { FontAwesome } from "@expo/vector-icons";
 import Login from "../Screen/LoginScreen/Login";
+import HeaderModalScreen from "../Screen/modalScreen/HeaderModalScreen";
+import BodyModalScreen from "../Screen/modalScreen/BodyModalScreen";
+import FooterModalScreen from "../Screen/modalScreen/FooterModalScreen";
 
 export default function Header() {
   const { user, isLoading } = useUser(); //funcion para traer informacion del usuario
+  const [modalVisible, setModalVisible] = useState(false); //para el modal de la informacion del usuario
   const navigation = useNavigation();
   const { signOut } = useClerk();
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
 
   // Logica para salir de la aplicación
   const handleLogout = async () => {
@@ -33,7 +42,19 @@ export default function Header() {
       <View style={style.container}>
         <View style={style.profileMainContainer}>
           <View style={style.profileContainer}>
-            <Image source={{ uri: user?.imageUrl }} style={style.userImage} />
+            <TouchableOpacity onPress={showModal}>
+              <Image source={{ uri: user?.imageUrl }} style={style.userImage} />
+            </TouchableOpacity>
+            <Modal visible={modalVisible} animationType="slide">
+              <View style={style.modal}>
+                <HeaderModalScreen />
+                <BodyModalScreen />
+                <FooterModalScreen />
+                <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
+                ></TouchableOpacity>
+              </View>
+            </Modal>
             <View>
               <Text style={style.textWelcome}>Welcome,</Text>
               <Text style={style.textNameUSer}>{user?.fullName}</Text>
@@ -47,18 +68,7 @@ export default function Header() {
     )
   );
 }
-// barra de busqueda
-{
-  /* <View style={style.searchBarContainer}>
-<TextInput placeholder="Search" style={style.textInput} />
-<Feather
-  name="search"
-  size={27}
-  color="black"
-  style={style.searchbtn}
-/>
-</View> */
-}
+
 const style = StyleSheet.create({
   container: {
     padding: 20,
@@ -68,6 +78,17 @@ const style = StyleSheet.create({
     backgroundColor: "blue",
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
+  },
+  textTittle: {
+    top: 20, // Ajusta este valor para cambiar la posición vertical
+    left: 60, // Ajusta este valor para cambiar la posición horizontal
+    fontSize: 20,
+    color: "black",
+    fontFamily: "sixtyfour-Regular",
+    // textAlign: "center",
+    // fontSize: 20,
+    // color: "black",
+    // fontFamily: "sixtyfour-Regular",
   },
   profileContainer: {
     display: "flex",
@@ -93,7 +114,6 @@ const style = StyleSheet.create({
   textNameUSer: {
     fontSize: 20,
     color: "white",
-    // fontFamily: "titanOne-Regular",
   },
   textInput: {
     padding: 7,
@@ -115,5 +135,28 @@ const style = StyleSheet.create({
     backgroundColor: "white",
     padding: 10,
     borderRadius: 8,
+  },
+  modal: {
+    width: "100%", // Ancho del modal
+    height: "100%", // Alto del modal
+    backgroundColor: "white", // Color de fondo del modal
+    borderRadius: 10, // Radio de borde del modal
+    justifyContent: "center", // Alinear contenido verticalmente al centro
+    alignItems: "center", // Alinear contenido horizontalmente al centro
+  },
+  imagePerson: {
+    width: 200,
+    height: 200,
+    marginTop: 70,
+    borderRadius: 115,
+    borderWidth: 4,
+    borderColor: "blue",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
   },
 });

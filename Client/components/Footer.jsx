@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import React from "react";
 
 export default function Footer() {
   return (

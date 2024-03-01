@@ -52,7 +52,7 @@ export default function Login() {
     <View style={style.container}>
       <Text style={style.textTittle}>ImageReVive</Text>
       <Animated.Image
-        source={require("../../assets/images/person.png")}
+        source={require("../../assets/images/persons.png")}
         style={[style.loginImage, { transform: [{ rotate: spin }] }]}
       />
       <TouchableOpacity style={style.button} onPress={onPress}>
@@ -95,7 +95,6 @@ const style = StyleSheet.create({
     },
     shadowOpacity: 0.5,
     shadowRadius: 4,
-    elevation: 8,
   },
   button: {
     padding: 15,

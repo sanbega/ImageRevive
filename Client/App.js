@@ -2,10 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Login from "./Screen/LoginScreen/Login";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo"; //libreria para la autenticacion con gmail
-import Header from "./components/Header";
 import { NavigationContainer } from "@react-navigation/native";
-import Body from "./components/Body";
-import Footer from "./components/Footer";
+import ConectionComponents from "./components/ConectionComponents";
 
 export default function App() {
   return (
@@ -13,9 +11,7 @@ export default function App() {
       <NavigationContainer>
         <View style={styles.container}>
           <SignedIn>
-            <Header />
-            <Body />
-            <Footer />
+            <ConectionComponents />
           </SignedIn>
           <SignedOut>
             <Login />
