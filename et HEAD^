@@ -1,0 +1,23 @@
+[33mcommit 5fc7ac120cedbae58b136524cd6f52ba3c3bb515[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Sanbega <beltrangaitansantiago@gmail.com>
+Date:   Fri Mar 1 09:28:35 2024 -0500
+
+    Implement body component logic
+
+[33mcommit cbccacd0509e0dba2a3511c6b5479a9eeddf89cd[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Sanbega <beltrangaitansantiago@gmail.com>
+Date:   Fri Mar 1 09:04:18 2024 -0500
+
+    Fixed header error and completed footer styles
+
+[33mcommit 2610690b6762cccee06578c6210c219357e4a9d6[m
+Author: Sanbega <beltrangaitansantiago@gmail.com>
+Date:   Thu Feb 29 20:18:33 2024 -0500
+
+    I have worked on the application header icon, but I need to fix it to make it visible
+
+[33mcommit f0a9f485066f5e59cfb1eee31a2bbf04e34834a3[m
+Author: Sanbega <beltrangaitansantiago@gmail.com>
+Date:   Thu Feb 29 16:14:34 2024 -0500
+
+    I have developed a small animation on the login image and also implemented login with Clerk via email

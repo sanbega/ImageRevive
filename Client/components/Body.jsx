@@ -1,20 +1,43 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
 export default function Body() {
   return (
-    <View style={style.container}>
-      <Text>Body</Text>
+    <View style={styles.container}>
+      <View style={styles.square}>
+        <TouchableOpacity>
+          <Text style={styles.textSelect}>Select to Image</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: 1000,
+  },
+  square: {
+    width: 300,
+    height: 300,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "gray",
+    borderWidth: 5,
+    borderRadius: 10,
+    borderColor: "blue",
+  },
+  // placeholder: {
+  //   color: "#999",
+  //   textAlign: "center",
+  //   fontSize: 16,
+  // },
+  textSelect: {
+    fontFamily: "outfit-regular",
+    fontSize: 20,
   },
 });
