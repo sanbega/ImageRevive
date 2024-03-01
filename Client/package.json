@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@clerk/clerk-expo": "^0.20.6",
+    "@clerk/clerk-react": "^4.30.6",
+    "@react-native-masked-view/masked-view": "^0.3.1",
+    "@react-navigation/native": "^6.1.14",
     "@types/react": "~18.2.45",
     "expo": "~50.0.8",
     "expo-application": "^5.8.3",
