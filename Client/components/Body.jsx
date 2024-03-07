@@ -1,116 +1,34 @@
-// import React, { useEffect, Image } from "react-native";
 import React, { useState } from "react";
-
 import {
   View,
   StyleSheet,
   TouchableOpacity,
   Text,
   Image,
-  Platform,
+  ActivityIndicator,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 export default function Body() {
+  const [showText, setShowText] = useState(true);
   const [image, setImage] = useState(null);
-  // const pickImage = async () => {
-  //   // No permissions request is necessary for launching the image library
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
+  const [uploading, setUploading] = useState(false);
 
-  //   console.log(result);
-
-  //   if (!result.canceled) {
-  //     setImage(result.assets[0].uri);
-  //     uploadImage(result.uri);
-  //   }
-  // };
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
+  const createFormData = (uri) => {
+    const fileName = uri.split("/").pop();
+    const fileType = fileName.split(".").pop();
+    const formData = new FormData();
+    formData.append("image", {
+      uri,
+      name: fileName,
+      type: `image/${fileType}`,
     });
-    console.log("esto es result", result);
-
-    if (!result.canceled) {
-      const formData = createFormData(result.assets[0].uri);
-      uploadImage(formData);
-      setImage(result.uri);
-    }
+    return formData;
   };
-
-  // esta es la anterio
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-
-  //   if (!result.cancelled) {
-  //     const formData = createFormData(result);
-  //     uploadImage(formData);
-  //     setImage(result.uri);
-  //   }
-  // };
-  // const uploadImage = async (uri) => {
-  //   let formData = createFormData(uri);
-  //   formData.append("image", {
-  //     uri: uri,
-  //     type: "image/jpeg",
-  //     name: "image.jpg",
-  //   });
-  //   fetch(
-  //     " https://60a7-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/upload",
-  //     {
-  //       method: "POST",
-  //       body: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log("Upload successful:", data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error uploading image:", error);
-  //     });
-  // };
-
-  // const uploadImage = async (uri) => {
-  //   let formData = createFormData(uri);
-
-  //   fetch(
-  //     "https://60a7-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/upload",
-  //     {
-  //       method: "POST",
-  //       body: formData,
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log("Upload successful:", data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error uploading image:", error);
-  //     });
-  // };
 
   const uploadImage = (formData) => {
     return fetch(
-      "https://60a7-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/upload",
+      "https://b6df-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/upload",
       {
         method: "POST",
         body: formData,
@@ -125,50 +43,28 @@ export default function Body() {
       })
       .catch((error) => {
         console.error("Error uploading image:", error);
+      })
+      .finally(() => {
+        setUploading(false);
       });
   };
 
-  const createFormData = (uri) => {
-    console.log("esto es uri", uri);
-    const fileName = uri.split("/").pop();
-    const fileType = fileName.split(".").pop();
-    const formData = new FormData();
-    formData.append("image", {
-      uri,
-      name: fileName,
-      type: `image/${fileType}`,
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
-    console.log("esto es formData", formData);
-    return formData;
-  };
-  // const createFormData = (uri) => {
-  //   const formData = new FormData();
-  //   formData.append("image", {
-  //     uri: uri,
-  //     name: "image.jpg",
-  //     type: "image/jpeg",
-  //   });
-  //   console.log("esto es formData", formData);
-  //   return formData;
-  // };
-  // este es el anterior
-  //   const createFormData = (image) => {
-  //     const formData = new FormData();
-  //     formData.append("image", image);
-  //     return formData;
-  //   };
-  // const createFormData = (uri) => {
-  //   const fileName = uri.split("/").pop();
-  //   const fileType = fileName.split(".").pop();
-  //   const formData = new FormData();
-  //   formData.append("file", {
-  //     uri,
-  //     name: fileName,
-  //     type: `image/${fileType}`,
-  //   });
 
-  //   return formData;
-  // };
+    if (!result.canceled) {
+      setUploading(true);
+      const formData = createFormData(result.assets[0].uri);
+      uploadImage(formData);
+      setImage(result.assets[0].uri);
+      setShowText(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -180,9 +76,20 @@ export default function Body() {
               style={{ width: 200, height: 200 }}
             />
           ) : (
-            <Text style={styles.textSelect}>Select to Image</Text>
+            showText && <Text style={styles.textSelect}>Select to Image</Text> // Mostrar texto solo si showText es true
           )}
         </TouchableOpacity>
+        {uploading && (
+          <View style={styles.uploadingContainer}>
+            <ActivityIndicator size="large" color="blue" />
+            <Text style={styles.uploadingText}>Uploading...</Text>
+          </View>
+        )}
+        {image && (
+          <TouchableOpacity style={styles.restoreButton}>
+            <Text style={styles.restoreButtonText}>Restore images</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -206,13 +113,31 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "blue",
   },
-  // placeholder: {
-  //   color: "#999",
-  //   textAlign: "center",
-  //   fontSize: 16,
-  // },
   textSelect: {
-    // fontFamily: "outfit-regular",
     fontSize: 20,
+  },
+  uploadingContainer: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  uploadingText: {
+    marginTop: 10,
+    fontSize: 16,
+  },
+  restoreButton: {
+    marginTop: 20,
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+  },
+  restoreButtonText: {
+    color: "white",
+    fontSize: 16,
   },
 });

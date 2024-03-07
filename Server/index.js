@@ -40,8 +40,8 @@ const upload = multer({ storage: storage });
 //   // const imageUrl = `${req.protocol}://${req.get("host")}/upload/${
 //   //   req.file.filename
 //   // }`;
-//   // const imageUrl = `https://60a7-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/upload/${req.file.path}`;
-//   const imageUrl = `https://60a7-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/${req.file.path}`;
+//   // const imageUrl = `https://b6df-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/upload/${req.file.path}`;
+//   const imageUrl = `https://b6df-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/${req.file.path}`;
 //   // const imageUrl = `https://localhost:8080/${req.file.path}`;
 //   return res.json({ imageUrl });
 // });
@@ -50,8 +50,8 @@ app.post("/upload", upload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No se ha enviado ninguna imagen" });
   }
-  // const imageUrl = `https://60a7-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/${req.file.filename}`;
-  const imageUrl = `https://60a7-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/uploads/${req.file.filename}`;
+  // const imageUrl = `https://b6df-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/${req.file.filename}`;
+  const imageUrl = `https://b6df-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/uploads/${req.file.filename}`;
   return res.json({ imageUrl });
 });
 
