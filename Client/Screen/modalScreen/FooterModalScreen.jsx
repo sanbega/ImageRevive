@@ -30,6 +30,6 @@ const style = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 12,
-    fontFamily: "Arial",
+    // fontFamily: "Arial",
   },
 });

@@ -37,7 +37,7 @@ export default function HeaderModalScreen() {
             <MaterialIcons name="arrow-back" size={30} color={"white"} />
             <Text
               style={{
-                fontFamily: "titanOne-Regular",
+                // fontFamily: "titanOne-Regular",
                 fontSize: 30,
                 color: "white",
                 marginLeft: 10, // Espacio entre el icono y el texto
@@ -64,7 +64,7 @@ export default function HeaderModalScreen() {
             style={{
               fontSize: 26,
               marginTop: 8,
-              fontFamily: "titanOne-Regular",
+              // fontFamily: "titanOne-Regular",
               color: "white",
             }}
           >

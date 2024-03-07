@@ -70,7 +70,7 @@ const style = StyleSheet.create({
     textAlign: "center",
     fontSize: 50,
     color: "black",
-    fontFamily: "sixtyfour-Regular",
+    // fontFamily: "sixtyfour-Regular",
   },
   subContainer: {
     width: "100%",
@@ -106,6 +106,6 @@ const style = StyleSheet.create({
     textAlign: "center",
     fontSize: 17,
     color: "white",
-    fontFamily: "sixtyfour-Regular",
+    // fontFamily: "sixtyfour-Regular",
   },
 });

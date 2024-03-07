@@ -84,7 +84,7 @@ const style = StyleSheet.create({
     left: 60, // Ajusta este valor para cambiar la posición horizontal
     fontSize: 20,
     color: "black",
-    fontFamily: "sixtyfour-Regular",
+    // fontFamily: "sixtyfour-Regular",
     // textAlign: "center",
     // fontSize: 20,
     // color: "black",
@@ -109,7 +109,7 @@ const style = StyleSheet.create({
   },
   textWelcome: {
     color: "white",
-    fontFamily: "outfit-regular",
+    // fontFamily: "outfit-regular",
   },
   textNameUSer: {
     fontSize: 20,
