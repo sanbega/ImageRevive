@@ -6,19 +6,10 @@ import Footer from "./Footer";
 
 export default function ConectionComponents() {
   return (
-    <View style={styles.container}>
+    <View>
       <Header />
       <Body />
       <Footer />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -8,11 +8,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { Entypo } from "@expo/vector-icons";
+// import replicate from "replicate";
 
 export default function Body() {
   const [showText, setShowText] = useState(true);
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [imageRestored, setImageRestored] = useState(null);
+  const [showDownloadIcon, setShowDownloadIcon] = useState(false);
+  const [showRestoreButton, setShowRestoreButton] = useState(false);
 
   const createFormData = (uri) => {
     const fileName = uri.split("/").pop();
@@ -28,7 +33,7 @@ export default function Body() {
 
   const uploadImage = (formData) => {
     return fetch(
-      "https://b6df-2800-484-387b-6600-c06c-4ead-be31-5acd.ngrok-free.app/upload",
+      "https://ecb7-2800-484-387b-6600-3919-55f9-79ce-54be.ngrok-free.app/upload",
       {
         method: "POST",
         body: formData,
@@ -63,6 +68,39 @@ export default function Body() {
       uploadImage(formData);
       setImage(result.assets[0].uri);
       setShowText(false);
+      setShowRestoreButton(true);
+      setShowDownloadIcon(false);
+    }
+  };
+  const restoreImage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("image", {
+        uri: image,
+        name: "image.jpg",
+        type: "image/jpeg",
+      });
+      const response = await fetch(
+        "https://ecb7-2800-484-387b-6600-3919-55f9-79ce-54be.ngrok-free.app/restore-image",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log("Restored image URL:", data);
+      setImageRestored(data.output[0]);
+      setImage(null);
+      setShowRestoreButton(false);
+      setShowDownloadIcon(false);
+      // setImageRestored(null);
+      // setShowDownloadIcon(false);
+    } catch (error) {
+      console.error("Error restoring image:", error);
     }
   };
 
@@ -86,8 +124,19 @@ export default function Body() {
           </View>
         )}
         {image && (
-          <TouchableOpacity style={styles.restoreButton}>
+          <TouchableOpacity style={styles.restoreButton} onPress={restoreImage}>
             <Text style={styles.restoreButtonText}>Restore images</Text>
+          </TouchableOpacity>
+        )}
+        {imageRestored && (
+          <Image
+            source={{ uri: imageRestored }}
+            style={{ width: 200, height: 200 }}
+          />
+        )}
+        {showDownloadIcon && (
+          <TouchableOpacity style={styles.restoreButton} onPress={restoreImage}>
+            <Entypo name="download" size={24} color="white" />
           </TouchableOpacity>
         )}
       </View>
