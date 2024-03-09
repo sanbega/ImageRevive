@@ -52,8 +52,8 @@ app.post("/upload", upload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No se ha enviado ninguna imagen" });
   }
-  // const imageUrl = `https://ecb7-2800-484-387b-6600-3919-55f9-79ce-54be.ngrok-free.app/${req.file.filename}`;
-  const imageUrl = `https://ecb7-2800-484-387b-6600-3919-55f9-79ce-54be.ngrok-free.app/uploads/${req.file.filename}`;
+  // const imageUrl = `https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/${req.file.filename}`;
+  const imageUrl = `https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/uploads/${req.file.filename}`;
   return res.json({ imageUrl });
 });
 

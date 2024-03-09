@@ -18,6 +18,7 @@ export default function Body() {
   const [imageRestored, setImageRestored] = useState(null);
   const [showDownloadIcon, setShowDownloadIcon] = useState(false);
   const [showRestoreButton, setShowRestoreButton] = useState(false);
+  const [showDownloadButton, setShowDownloadButton] = useState(false);
 
   const createFormData = (uri) => {
     const fileName = uri.split("/").pop();
@@ -33,7 +34,7 @@ export default function Body() {
 
   const uploadImage = (formData) => {
     return fetch(
-      "https://ecb7-2800-484-387b-6600-3919-55f9-79ce-54be.ngrok-free.app/upload",
+      "https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/upload",
       {
         method: "POST",
         body: formData,
@@ -81,7 +82,7 @@ export default function Body() {
         type: "image/jpeg",
       });
       const response = await fetch(
-        "https://ecb7-2800-484-387b-6600-3919-55f9-79ce-54be.ngrok-free.app/restore-image",
+        "https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/restore-image",
         {
           method: "POST",
           body: formData,
@@ -97,12 +98,15 @@ export default function Body() {
       setImage(null);
       setShowRestoreButton(false);
       setShowDownloadIcon(false);
-      // setImageRestored(null);
-      // setShowDownloadIcon(false);
+      setShowDownloadButton(true);
     } catch (error) {
       console.error("Error restoring image:", error);
     }
   };
+  // const downloadImage = () => {
+  //   // Lógica para descargar la imagen
+  //   console.log("Descargando imagen...");
+  // };
 
   return (
     <View style={styles.container}>
@@ -123,21 +127,28 @@ export default function Body() {
             <Text style={styles.uploadingText}>Uploading...</Text>
           </View>
         )}
-        {image && (
+        {/* {image && ( */}
+        {!imageRestored && showRestoreButton && (
           <TouchableOpacity style={styles.restoreButton} onPress={restoreImage}>
             <Text style={styles.restoreButtonText}>Restore images</Text>
           </TouchableOpacity>
         )}
         {imageRestored && (
-          <Image
-            source={{ uri: imageRestored }}
-            style={{ width: 200, height: 200 }}
-          />
-        )}
-        {showDownloadIcon && (
-          <TouchableOpacity style={styles.restoreButton} onPress={restoreImage}>
-            <Entypo name="download" size={24} color="white" />
-          </TouchableOpacity>
+          <View>
+            <Image
+              source={{ uri: imageRestored }}
+              style={{ width: 200, height: 200 }}
+            />
+            <TouchableOpacity
+              style={styles.downloadButton}
+              onPress={() => {
+                // Aquí puedes agregar la lógica para descargar la imagen si es necesario
+                console.log("Descargando imagen...");
+              }}
+            >
+              <Entypo name="download" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
         )}
       </View>
     </View>
@@ -188,5 +199,12 @@ const styles = StyleSheet.create({
   restoreButtonText: {
     color: "white",
     fontSize: 16,
+  },
+  downloadButton: {
+    alignItems: "center",
+    marginTop: 20,
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
   },
 });
