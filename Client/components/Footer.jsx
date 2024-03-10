@@ -4,9 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 export default function Footer() {
   return (
     <View style={style.container}>
-      <Text style={style.text}>
-        © 2024 My App. Todos los derechos reservados.
-      </Text>
+      <Text style={style.text}>© 2024 My App. All rights reserved.</Text>
       <FontAwesome name="facebook" size={24} color="white" />
       <FontAwesome name="twitter" size={24} color="white" />
       <FontAwesome name="instagram" size={24} color="white" />
@@ -29,6 +27,5 @@ const style = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 12,
-    // fontFamily: "Arial",
   },
 });

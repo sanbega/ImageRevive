@@ -3,8 +3,6 @@ import cors from "cors";
 import multer from "multer";
 import Replicate from "replicate";
 
-// const path = require("path");
-// const fs = require("fs");
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -52,8 +50,7 @@ app.post("/upload", upload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No se ha enviado ninguna imagen" });
   }
-  // const imageUrl = `https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/${req.file.filename}`;
-  const imageUrl = `https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/uploads/${req.file.filename}`;
+  const imageUrl = `https://0ba0-2800-484-387b-6600-249-4cde-d37a-3a13.ngrok-free.app/uploads/${req.file.filename}`;
   return res.json({ imageUrl });
 });
 
@@ -79,45 +76,6 @@ app.post("/restore-image", upload.single("image"), async (req, res) => {
       .json({ message: "Error al ejecutar el modelo", error: error.message });
   }
 });
-
-// app.post("/restore-image", upload.single("image"), async (req, res) => {
-//   if (!req.file) {
-//     return res.status(400).json({ message: "No se ha enviado ninguna imagen" });
-//   }
-
-//   const model =
-//     "stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478";
-//   const input = {
-//     prompt: "a 19th century portrait of a raccoon gentleman wearing a suit",
-//   };
-
-//   try {
-//     const output = await replicate.run(model, { input });
-//     // Aquí puedes procesar el resultado de la ejecución del modelo
-//     // y devolver la imagen restaurada u otra información relevante
-//     res.json({ output });
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .json({ message: "Error al ejecutar el modelo", error: error.message });
-//   }
-// });
-
-// app.get("/run-model", async (req, res) => {
-//   const model =
-//     "stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478";
-//   const input = {
-//     prompt: "a 19th century portrait of a raccoon gentleman wearing a suit",
-//   };
-//   try {
-//     const output = await replicate.run(model, { input });
-//     res.json({ output });
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .json({ message: "Error al ejecutar el modelo", error: error.message });
-//   }
-// });
 
 // Endpoint para obtener una imagen
 app.get("/image/:imageName", (req, res) => {

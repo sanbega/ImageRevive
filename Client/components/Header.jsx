@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-react"; // Librería para obtener la información del usuario a través de una URL
-// import { Feather } from "@expo/vector-icons"; //libreria para iconos https://icons.expo.fyi/Index
 import { Entypo } from "@expo/vector-icons"; //libreria para iconos https://icons.expo.fyi/Index
 import { useNavigation } from "@react-navigation/native";
 import { useClerk } from "@clerk/clerk-react";
@@ -84,11 +83,6 @@ const style = StyleSheet.create({
     left: 60, // Ajusta este valor para cambiar la posición horizontal
     fontSize: 20,
     color: "black",
-    // fontFamily: "sixtyfour-Regular",
-    // textAlign: "center",
-    // fontSize: 20,
-    // color: "black",
-    // fontFamily: "sixtyfour-Regular",
   },
   profileContainer: {
     display: "flex",
@@ -109,7 +103,6 @@ const style = StyleSheet.create({
   },
   textWelcome: {
     color: "white",
-    // fontFamily: "outfit-regular",
   },
   textNameUSer: {
     fontSize: 20,

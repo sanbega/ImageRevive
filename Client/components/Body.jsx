@@ -8,8 +8,8 @@ import {
   ActivityIndicator,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 import { Entypo } from "@expo/vector-icons";
-// import replicate from "replicate";
 
 export default function Body() {
   const [showText, setShowText] = useState(true);
@@ -19,6 +19,7 @@ export default function Body() {
   const [showDownloadIcon, setShowDownloadIcon] = useState(false);
   const [showRestoreButton, setShowRestoreButton] = useState(false);
   const [showDownloadButton, setShowDownloadButton] = useState(false);
+  const [downloadClicked, setDownloadClicked] = useState(false);
 
   const createFormData = (uri) => {
     const fileName = uri.split("/").pop();
@@ -34,7 +35,7 @@ export default function Body() {
 
   const uploadImage = (formData) => {
     return fetch(
-      "https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/upload",
+      "https://0ba0-2800-484-387b-6600-249-4cde-d37a-3a13.ngrok-free.app/upload",
       {
         method: "POST",
         body: formData,
@@ -82,7 +83,7 @@ export default function Body() {
         type: "image/jpeg",
       });
       const response = await fetch(
-        "https://a5cb-2800-484-387b-6600-2832-6703-427a-b35a.ngrok-free.app/restore-image",
+        "https://0ba0-2800-484-387b-6600-249-4cde-d37a-3a13.ngrok-free.app/restore-image",
         {
           method: "POST",
           body: formData,
@@ -103,11 +104,22 @@ export default function Body() {
       console.error("Error restoring image:", error);
     }
   };
-  // const downloadImage = () => {
-  //   // Lógica para descargar la imagen
-  //   console.log("Descargando imagen...");
-  // };
 
+  const downloadImage = async () => {
+    try {
+      // Descargar la imagen restaurada
+      const downloadUrl = imageRestored;
+      const { uri: fileUri } = await FileSystem.downloadAsync(
+        downloadUrl,
+        FileSystem.documentDirectory + "restored_image.jpg"
+      );
+      console.log("Imagen descargada:", fileUri);
+      // Marcar que se ha hecho clic en el icono de descarga
+      setDownloadClicked(true);
+    } catch (error) {
+      console.error("Error al descargar la imagen:", error);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.square}>
@@ -141,10 +153,8 @@ export default function Body() {
             />
             <TouchableOpacity
               style={styles.downloadButton}
-              onPress={() => {
-                // Aquí puedes agregar la lógica para descargar la imagen si es necesario
-                console.log("Descargando imagen...");
-              }}
+              onPress={downloadImage}
+              disabled={downloadClicked}
             >
               <Entypo name="download" size={24} color="white" />
             </TouchableOpacity>
